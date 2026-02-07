@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #171717;
+  --primary: #3B82F6;
+  --primary-bg: #EFF6FF;
+  --secondary-bg: #FFFFFF;
+  --secondary: #F3F4F6;
+  --accent-1: #A5D8FF;
+  --accent-2: #D0BCFF;
+  --accent-3: #B197FC;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(255, 255, 255, 0.3);
+  --brutal-border: #000000;
+  --brutal-shadow: #000000;
+}
+
+/* Explicit class override has highest priority */
+.dark {
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --primary-bg: #000000;
+  --secondary-bg: #404040;
+  --secondary: #737373;
+  --card-bg: rgba(64, 64, 64, 0.6);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --brutal-border: #FFFFFF;
+  --brutal-shadow: #3B82F6;
+}
+
+.light {
+  --background: #FFFFFF;
+  --foreground: #171717;
+  --primary-bg: #EFF6FF;
+  --secondary-bg: #FFFFFF;
+  --brutal-border: #000000;
+  --brutal-shadow: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #000000;
+    --foreground: #FFFFFF;
+    --primary-bg: #000000;
+    --secondary-bg: #404040;
+    --secondary: #737373;
+    --brutal-border: #FFFFFF;
+    --brutal-shadow: #3B82F6;
+  }
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-bg: var(--primary-bg);
+  --color-secondary-bg: var(--secondary-bg);
+  --color-secondary: var(--secondary);
+  --color-accent-1: var(--accent-1);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+
+  --font-sans: "Inter", var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+/* Configure dark mode to work with .dark class in Tailwind 4 */
+@variant dark (&:where(.dark, .dark *));
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+}
+
+.neo-brutal {
+  border: 4px solid var(--brutal-border);
+  box-shadow: 6px 6px 0px 0px var(--brutal-shadow);
+  transition: all 0.2s ease;
+}
+
+.neo-brutal:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0px 0px var(--brutal-shadow);
+}
+
+.neo-brutal-btn {
+  border: 3px solid var(--brutal-border);
+  box-shadow: 4px 4px 0px 0px var(--brutal-shadow);
+  transition: all 0.1s ease;
+}
+
+.neo-brutal-btn:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px var(--brutal-shadow);
+}
+
+.neo-brutal-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px 0px var(--brutal-shadow);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+.animate-scroll-slow {
+  animation: scroll 40s linear infinite;
+}
+
+.animate-scroll:hover,
+.animate-scroll-slow:hover {
+  animation-play-state: paused;
+}
